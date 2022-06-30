@@ -2,8 +2,7 @@
 
 (function() {
 
-  var MAX_INT32 = 2147483647;
-  var MULTIPLIER = 4294967296 // 2^32;
+  var MAX_INT32 = 1125899906842623;
 
   var root = this;
   var prevOptimus = root.Optimus;
@@ -24,19 +23,19 @@
   }
 
   var Optimus = function(prime, inverse, random) {
-    this.prime = Long.fromInt(prime);
-    this.inverse = Long.fromInt(inverse);
-    this.random = Long.fromInt(random);
+    this.prime = Long.fromNumber(prime);
+    this.inverse = Long.fromNumber(inverse);
+    this.random = Long.fromNumber(random);
   };
 
   Optimus.prototype.encode = function(num) {
-    var n = Long.fromInt(num);
-    return n.mul(this.prime).and(Long.fromInt(MAX_INT32)).xor(this.random).toSigned().toInt();
+    var n = Long.fromNumber(num);
+    return n.mul(this.prime).and(Long.fromNumber(MAX_INT32)).xor(this.random).toSigned().toNumber();
   };
 
   Optimus.prototype.decode = function(num) {
-    var n = Long.fromInt(num);
-    return n.xor(this.random).mul(this.inverse).and(Long.fromInt(MAX_INT32)).toSigned().toInt();
+    var n = Long.fromNumber(num);
+    return n.xor(this.random).mul(this.inverse).and(Long.fromNumber(MAX_INT32)).toSigned().toNumber();
   };
 
   Optimus.noConflict = function() {
